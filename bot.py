@@ -5,9 +5,9 @@ import re
 from dotenv import load_dotenv
 import os
 
-BASE_URL = os.getenv("BASE_URL")
-
 load_dotenv()
+
+BASE_URL = os.getenv("BASE_URL")
 
 def is_only_link(text):
     pattern = r'^(https?://[^\s]+)$'
@@ -34,6 +34,7 @@ async def handle_message(update: Update, context):
             
             await update.message.reply_text(f"Saved! Check it on {BASE_URL}")
         except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
             await update.message.reply_text(f"Error: {e}")
 
     elif message.photo:
